@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.baidu.mobstat.StatService;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
+
 import io.microshow.rxffmpeg.app.utils.Utils;
 
 /**
@@ -59,13 +58,11 @@ public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        StatService.onPageStart(getActivity(), getFragmentName());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        StatService.onPageEnd(getActivity(), getFragmentName());
     }
 
     @Override

@@ -2,14 +2,14 @@ package io.microshow.rxffmpeg.app.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.baidu.mobstat.StatService;
+import androidx.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
-import androidx.annotation.Nullable;
 import io.microshow.rxffmpeg.RxFFmpegInvoke;
 import io.microshow.rxffmpeg.RxFFmpegSubscriber;
 import io.microshow.rxffmpeg.app.R;
@@ -26,6 +26,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
     private long startTime;//记录开始时间
     private long endTime;//记录结束时间
 
+    private String root;
     private ProgressDialog mProgressDialog;
 
     private MyRxFFmpegSubscriber myRxFFmpegSubscriber;
@@ -72,7 +73,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
         //统计结束时间
         endTime = System.nanoTime();
         Utils.showDialog(getActivity(), message, Utils.convertUsToTime((endTime - startTime) / 1000, false));
-        StatService.onEventDuration(getActivity(), "RunFFmpegCommand", binding.editText.getText().toString(), (endTime - startTime) / (1000 * 1000));
     }
 
     @Override
@@ -91,10 +91,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements V
     }
 
     private void init() {
-        binding.editText.setText("ffmpeg -y -i /storage/emulated/0/1/input.mp4 -vf boxblur=5:1 -preset superfast /storage/emulated/0/1/result.mp4");
+        root = getContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES).getAbsolutePath();
+
+        binding.editText.setText("ffmpeg -y -i " + root + "/input.mp4 -vf boxblur=5:1 -preset superfast " + root + "/result.mp4");
         binding.button.setOnClickListener(this);
 
-        binding.tvCpu.setText("正在使用 " + CPUUtils.getCPUAbi() + " 架构");
+        binding.tvCpu.setText("正在使用 " + CPUUtils.getCPUAbi() + " 架构" + "\n" + root);
     }
 
     /**

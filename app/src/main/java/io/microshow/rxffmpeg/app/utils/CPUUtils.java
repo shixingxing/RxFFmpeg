@@ -8,7 +8,11 @@ import android.os.Build;
 public class CPUUtils {
 
     public static String getCPUAbi() {
-        return Build.CPU_ABI;
+        StringBuilder builder = new StringBuilder();
+        for (String name : Build.SUPPORTED_ABIS) {
+            builder.append(name);
+        }
+        return builder.toString();
     }
 
 }
