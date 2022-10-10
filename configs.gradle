@@ -5,11 +5,7 @@ ext {
     //目标版本
     targetSdkValue = 28
     //编译 SDK 版本
-    compileSdkValue = 28
-    //构建工具
-    buildToolsValue = "28.0.3"
-    //支持包版本
-    supportLibValue = "28.0.0"
+    compileSdkValue = 33
     //应用 versionCode
     versionCodeValue = 490
     //应用 version 名称，更多设置里显示的
